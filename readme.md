@@ -36,14 +36,14 @@ try {
 
 In browser:
 ```html
-<script src="handlebars-error-parser.js"></script>
+<script src="./node_modules/handlebars-error-parser/index.js"></script>
 ```
 ```js
 var parsed;
 try {
     hbs.precompile('{{#foo}}{{/bar}}');
 } catch (e) {
-    parsed = window.handlebarsErrorParser(e);
+    parsed = window.HandlebarsErrorParser(e);
 }
 ```
 

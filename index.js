@@ -35,7 +35,7 @@
 	};
 
 	if ('undefined' !== typeof window) { // eslint-disable-line no-undef
-		window.handlebarsErrorParser = parser; // eslint-disable-line no-undef
+		window.HandlebarsErrorParser = parser; // eslint-disable-line no-undef
 	}
 
 	if ('undefined' !== typeof module) { // eslint-disable-line no-undef
