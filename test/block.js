@@ -4,42 +4,7 @@ var assert = require('assert');
 var hbs = require('handlebars');
 var parser = require('../index.js').parser;
 
-describe('Handlebars Parse Error', function () {
-
-	
-	it('empty expression', function () {
-		var parsed;
-		try {
-			hbs.precompile('{{}}');
-		} catch (e) {
-			//console.log(e);
-			parsed = parser(e);
-			assert.deepEqual(parsed, {
-				startLine: 1,
-				startColumn: 3,
-				endLine: 1,
-				endColumn: 4,
-				message: 'empty Handlebars expression'
-			});
-		}
-	});
-
-	it('empty expression', function () {
-		var parsed;
-		try {
-			hbs.precompile('{{');
-		} catch (e) {
-			//console.log(e);
-			parsed = parser(e);
-			assert.deepEqual(parsed, {
-				startLine: 1,
-				startColumn: 3,
-				endLine: 1,
-				endColumn: 4,
-				message: 'invalid Handlebars expression'
-			});
-		}
-	});
+describe('Block Problems', function () {
 
 	it('block mismatched', function () {
 		var parsed;
@@ -86,22 +51,6 @@ describe('Handlebars Parse Error', function () {
 				endLine: 1,
 				endColumn: 25,
 				message: 'invalid closing block, check opening block'
-			});
-		}
-	});
-	it('parse error', function () {
-		var parsed;
-		try {
-			hbs.precompile('{{foo');
-		} catch (e) {
-			//console.log(e);
-			parsed = parser(e);
-			assert.deepEqual(parsed, {
-				startLine: 1,
-				startColumn: 3,
-				endLine: 1,
-				endColumn: 4,
-				message: 'invalid Handlebars expression'
 			});
 		}
 	});
