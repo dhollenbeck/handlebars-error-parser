@@ -10,11 +10,12 @@
 		return message;
 	}
 
-	var parser = function (str) {
+	var parser = function (e) {
 		var parsed = {};
-		if (typeof str !== 'string') return;
+		if (!e) return;
+		if (typeof e.message !== 'string') return;
 
-		str.replace(regex1, function (match, line, code, indicator, message) {
+		e.message.replace(regex1, function (match, line, code, indicator, message) {
 			parsed.startLine = +line;
 			parsed.startColumn = +indicator.length;
 			parsed.endLine = parsed.startLine;
@@ -22,7 +23,7 @@
 			parsed.message = friendlyMessage(message);
 			return '';
 		});
-		str.replace(regex2, function(match, message, line, column) {
+		e.message.replace(regex2, function(match, message, line, column) {
 			parsed.startLine = +line;
 			parsed.startColumn = +column;
 			parsed.endLine = parsed.startLine;

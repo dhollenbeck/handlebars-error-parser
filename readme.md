@@ -6,7 +6,7 @@ Handlebars exception types:
 - **Parser Error:** handlebars can't compile the template.
 - **Block Error:** the open and close block helpers do not match.
 
-This module parses these errors and converts them into:
+This module parses the exception message into:
 ```js
 {
     startLine: 1,
@@ -30,7 +30,7 @@ var parsed;
 try {
     hbs.precompile('{{#foo}}{{/bar}}');
 } catch (e) {
-    parsed = parser(e.message);
+    parsed = parser(e);
 }
 ```
 
@@ -43,7 +43,7 @@ var parsed;
 try {
     hbs.precompile('{{#foo}}{{/bar}}');
 } catch (e) {
-    parsed = window.handlebarsErrorParser(e.message);
+    parsed = window.handlebarsErrorParser(e);
 }
 ```
 

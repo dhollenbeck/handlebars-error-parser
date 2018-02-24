@@ -11,7 +11,8 @@ describe('Handlebars Parse Error', function () {
 		try {
 			hbs.precompile('{{#foo}}{{/bar}}');
 		} catch (e) {
-			parsed = parser(e.message);
+			//console.log(e);
+			parsed = parser(e);
 			assert.deepEqual(parsed, {
 				startLine: 1,
 				startColumn: 3,
@@ -24,15 +25,31 @@ describe('Handlebars Parse Error', function () {
 	it('mismatched block helpers', function () {
 		var parsed;
 		try {
-			hbs.precompile('{{foo}}{{/foo}}');
+			hbs.precompile('{{#foo}}\n{{/bar}}');
 		} catch (e) {
-			//console.log(e.message);
-			parsed = parser(e.message);
+			//console.log(e);
+			parsed = parser(e);
 			assert.deepEqual(parsed, {
 				startLine: 1,
-				startColumn: 8,
+				startColumn: 3,
 				endLine: 1,
-				endColumn: 9,
+				endColumn: 4,
+				message: 'foo doesn\'t match bar'
+			});
+		}
+	});
+	it('mismatched block helpers', function () {
+		var parsed;
+		try {
+			hbs.precompile('12345678901234567890{{foo}}{{/foo}}');
+		} catch (e) {
+			//console.log(e);
+			parsed = parser(e);
+			assert.deepEqual(parsed, {
+				startLine: 1,
+				startColumn: 24,
+				endLine: 1,
+				endColumn: 25,
 				message: 'invalid closing block, check opening block'
 			});
 		}
@@ -42,8 +59,8 @@ describe('Handlebars Parse Error', function () {
 		try {
 			hbs.precompile('{{foo');
 		} catch (e) {
-			//console.log(e.message);
-			parsed = parser(e.message);
+			//console.log(e);
+			parsed = parser(e);
 			assert.deepEqual(parsed, {
 				startLine: 1,
 				startColumn: 3,
