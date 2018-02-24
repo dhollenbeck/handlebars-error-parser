@@ -10,12 +10,25 @@ npm install handlebars-error-parser --save
 
 In Node.js:
 ```js
-var parser = require('handlebars-error-parser');
+var parser = require('handlebars-error-parser').parser;
 var parsed;
 try {
     hbs.precompile('{{#foo}}{{/bar}}');
 } catch (e) {
     parsed = parser(e.message);
+}
+```
+
+In browser:
+```html
+<script src="handlebars-error-parser.js"></script>
+```
+```js
+var parsed;
+try {
+    hbs.precompile('{{#foo}}{{/bar}}');
+} catch (e) {
+    parsed = window.handlebarsErrorParser(e.message);
 }
 ```
 
