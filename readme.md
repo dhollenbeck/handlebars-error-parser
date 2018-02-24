@@ -2,6 +2,10 @@
 
 The purpose of this module is to try and parse the compile errors returned from Handlebars so they can be used in handlebars linter(s). Handlebars returns different errors depending the template errors.
 
+Handlebars throws the following types of exceptions:
+- parser error - handlebars can't compile the template.
+- block error - the open and close block helpers do not match.
+
 # Install
 
 ```bash
@@ -32,7 +36,7 @@ try {
 }
 ```
 
-# Mismatched: block helpers
+# Block Error: Mismatched: block helpers
 
 ```hbs
 {{#foo}}{{/bar}}
@@ -50,7 +54,7 @@ Outputs:
     message: 'foo doesn\'t match bar'
 }
 ```
-# Mismatached: closing helpler
+# Block Error: Mismatached: closing helpler
 ```hbs
 {{foo}}{{/foo}}
 ```
@@ -60,7 +64,7 @@ Parse error on line 1:
 -------^
 Expecting 'EOF', got 'OPEN_ENDBLOCK'
 ```
-# Missing helper or variable closing
+# Parse Error: Missing helper or variable closing
 
 ```hbs
 {{foo
@@ -72,7 +76,7 @@ Parse error on line 1:
 Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'INVALID'
 ```
 
-# Missing block helper closing
+# Parse Error: Missing block helper closing
 
 ```hbs
 {{#foo
