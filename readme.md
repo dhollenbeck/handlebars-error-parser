@@ -1,6 +1,23 @@
 # handlebars-error-parser
 
-The purpose of this module is to try and parse the compile errors returned from Handlebars so they can be used in handlebars linter. Handlebars returns different errors depending the template errors.
+The purpose of this module is to try and parse the compile errors returned from Handlebars so they can be used in handlebars linter(s). Handlebars returns different errors depending the template errors.
+
+# Install
+
+```bash
+npm install handlebars-error-parser --save
+```
+
+In Node.js:
+```js
+var parser = require('handlebars-error-parser');
+var parsed;
+try {
+    hbs.precompile('{{#foo}}{{/bar}}');
+} catch (e) {
+    parsed = parser(e.message);
+}
+```
 
 # Mismatched: block helpers
 
@@ -10,7 +27,16 @@ The purpose of this module is to try and parse the compile errors returned from 
 ```text
 foo doesn't match bar - 1:3
 ```
-
+Outputs:
+```js
+{
+    startLine: 1,
+    startColumn: 3,
+    endLine: 1,
+    endColumn: 4,
+    message: 'foo doesn\'t match bar'
+}
+```
 # Mismatached: closing helpler
 ```hbs
 {{foo}}{{/foo}}
