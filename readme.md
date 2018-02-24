@@ -1,8 +1,8 @@
 # handlebars-error-parser
 
-The purpose of this module is to try and parse the compile errors returned from Handlebars so they can be used in handlebars linter(s). Handlebars returns different errors depending the template errors.
+The purpose of this module is to parse the Handlebars compile exceptions messages into a more useable format which can be used in handlebars linter(s). Handlebars throws different exceptions depending the template error.
 
-Handlebars throws the following types of exceptions:
+Handlebars exception types:
 - **Parser Error:** handlebars can't compile the template.
 - **Block Error:** the open and close block helpers do not match.
 
