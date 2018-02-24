@@ -3,8 +3,19 @@
 The purpose of this module is to try and parse the compile errors returned from Handlebars so they can be used in handlebars linter(s). Handlebars returns different errors depending the template errors.
 
 Handlebars throws the following types of exceptions:
-- parser error - handlebars can't compile the template.
-- block error - the open and close block helpers do not match.
+- **Parser Error:** handlebars can't compile the template.
+- **Block Error:** the open and close block helpers do not match.
+
+This module parses these errors and converts them into:
+```js
+{
+    startLine: 1,
+    startColumn: 3,
+    endLine: 1,
+    endColumn: 4,
+    message: 'foo doesn\'t match bar'
+}
+```
 
 # Install
 
@@ -43,16 +54,6 @@ try {
 ```
 ```text
 foo doesn't match bar - 1:3
-```
-Outputs:
-```js
-{
-    startLine: 1,
-    startColumn: 3,
-    endLine: 1,
-    endColumn: 4,
-    message: 'foo doesn\'t match bar'
-}
 ```
 # Block Error: Mismatached: closing helpler
 ```hbs
