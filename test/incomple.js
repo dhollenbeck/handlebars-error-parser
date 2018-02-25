@@ -127,4 +127,21 @@ describe('Incomplete Expressions', function () {
 			}, parsed);
 		}
     });
+    it('open helper expression with dots prefix', function () {
+        var parsed;
+        var html = "<h1 class='foobar'>{{foo}}}} {{echo 'hello world'}</h1>\n<div>\n\tThis is an invalid div.";
+		try {
+			hbs.precompile(html);
+		} catch (e) {
+			//console.log(e);
+			parsed = parser(e, html);
+			assert.deepEqual({
+				minLine: 0,
+				minColumn: 19,
+				maxLine: 0,
+				maxColumn: 39,
+				message: 'invalid Handlebars expression'
+			}, parsed);
+		}
+    });
 });
