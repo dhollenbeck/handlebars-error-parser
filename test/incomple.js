@@ -95,7 +95,7 @@ describe('Incomplete Expressions', function () {
     
     it('open helper expression with dots prefix', function () {
         var parsed;
-        var html = "<h1 class='foobar'>{{echo 'hello world'}</h1>";
+        var html = "<h1 class='foobar'>{{echo 'hello world'}</h1>\n<div>\n\tThis is an invalid div.";
 		try {
 			hbs.precompile(html);
 		} catch (e) {

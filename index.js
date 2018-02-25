@@ -25,6 +25,10 @@
 
 			var line, min, max, dots = false;
 
+			// trim off extra suffix code which could
+			// force us to not find the pos in the line.
+			code = code.substring(0, indicator.length);
+
 			code = code.replace('...', function() {
 				dots = true;
 				return '';
@@ -36,9 +40,16 @@
 				? min + indicator.length - 1
 				: min + indicator.length - 4;
 
-			return {
-				min: min,
-				max: max
+			if (min === -1) {
+				return {
+					min: 0,
+					max: 0
+				};
+			} else {
+				return {
+					min: min,
+					max: max
+				};
 			}
 		}
 
