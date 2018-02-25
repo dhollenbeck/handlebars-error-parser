@@ -21,13 +21,21 @@
 
 		lines = html.split('\n');
 
-		function getPos(lineNum, code) {
+		function getPos(lineNum, code, indicator) {
 
-			code = code.replace('...', '').replace('...', '');
+			var line, min, max, dots = false;
 
-			var line = lines[lineNum];
-			var min = line.indexOf(code);
-			var max = min + code.length;
+			code = code.replace('...', function() {
+				dots = true;
+				return '';
+			});
+
+			line = lines[lineNum];
+			min = line.indexOf(code);
+			max = (!dots)
+				? min + indicator.length - 1
+				: min + indicator.length - 4;
+
 			return {
 				min: min,
 				max: max
@@ -39,7 +47,9 @@
 			var pos;
 			lineNum = +lineNum;
 			lineNum = lineNum - 1;
-			pos = getPos(lineNum, code);
+			pos = getPos(lineNum, code, indicator);
+
+			//console.log('pos:', pos);
 
 			parsed.minLine = lineNum;
 			parsed.minColumn = pos.min;

@@ -23,7 +23,7 @@ describe('Block Problems', function () {
 			}, parsed);
 		}
 	});
-	it('mismatched block helpers', function () {
+	it('mismatched block helpers with newline', function () {
 		var parsed;
 		var html = '{{#foo}}\n{{/bar}}';
 		try {
@@ -52,7 +52,7 @@ describe('Block Problems', function () {
 				minLine: 0,
 				minColumn: 0,
 				maxLine: 0,
-				maxColumn: 15,
+				maxColumn: 7,
 				message: 'invalid closing block, check opening block'
 			}, parsed);
 		}
