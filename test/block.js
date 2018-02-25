@@ -8,50 +8,53 @@ describe('Block Problems', function () {
 
 	it('block mismatched', function () {
 		var parsed;
+		var html = '{{#foo}}{{/bar}}';
 		try {
-			hbs.precompile('{{#foo}}{{/bar}}');
+			hbs.precompile(html);
 		} catch (e) {
 			//console.log(e);
-			parsed = parser(e);
-			assert.deepEqual(parsed, {
-				startLine: 1,
-				startColumn: 3,
-				endLine: 1,
-				endColumn: 4,
+			parsed = parser(e, html);
+			assert.deepEqual({
+				minLine: 0,
+				minColumn: 2,
+				maxLine: 0,
+				maxColumn: 3,
 				message: 'foo doesn\'t match bar'
-			});
+			}, parsed);
 		}
 	});
 	it('mismatched block helpers', function () {
 		var parsed;
+		var html = '{{#foo}}\n{{/bar}}';
 		try {
-			hbs.precompile('{{#foo}}\n{{/bar}}');
+			hbs.precompile(html);
 		} catch (e) {
 			//console.log(e);
-			parsed = parser(e);
-			assert.deepEqual(parsed, {
-				startLine: 1,
-				startColumn: 3,
-				endLine: 1,
-				endColumn: 4,
+			parsed = parser(e, html);
+			assert.deepEqual({
+				minLine: 0,
+				minColumn: 2,
+				maxLine: 0,
+				maxColumn: 3,
 				message: 'foo doesn\'t match bar'
-			});
+			}, parsed);
 		}
 	});
 	it('mismatched block helpers', function () {
 		var parsed;
+		var html = '{{foo}}{{/foo}}';
 		try {
-			hbs.precompile('12345678901234567890{{foo}}{{/foo}}');
+			hbs.precompile(html);
 		} catch (e) {
 			//console.log(e);
-			parsed = parser(e);
-			assert.deepEqual(parsed, {
-				startLine: 1,
-				startColumn: 24,
-				endLine: 1,
-				endColumn: 25,
+			parsed = parser(e, html);
+			assert.deepEqual({
+				minLine: 0,
+				minColumn: 0,
+				maxLine: 0,
+				maxColumn: 15,
 				message: 'invalid closing block, check opening block'
-			});
+			}, parsed);
 		}
 	});
 });

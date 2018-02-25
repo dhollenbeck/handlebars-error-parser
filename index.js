@@ -12,24 +12,53 @@
 		return message;
 	}
 
-	var parser = function (e) {
+	var parser = function (e, html) {
 		var parsed = {};
+		var lines;
 		if (!e) return;
 		if (typeof e.message !== 'string') return;
+		if (typeof html !== 'string') return;
 
-		e.message.replace(regex1, function (match, line, code, indicator, message) {
-			parsed.startLine = +line;
-			parsed.startColumn = +indicator.length;
-			parsed.endLine = parsed.startLine;
-			parsed.endColumn = parsed.startColumn + 1;
+		lines = html.split('\n');
+
+		function getPos(lineNum, code) {
+
+			code = code.replace('...', '').replace('...', '');
+
+			var line = lines[lineNum];
+			var min = line.indexOf(code);
+			var max = min + code.length;
+			return {
+				min: min,
+				max: max
+			}
+		}
+
+		e.message.replace(regex1, function (match, lineNum, code, indicator, message) {
+
+			var pos;
+			lineNum = +lineNum;
+			lineNum = lineNum - 1;
+			pos = getPos(lineNum, code);
+
+			parsed.minLine = lineNum;
+			parsed.minColumn = pos.min;
+			parsed.maxLine = lineNum;
+			parsed.maxColumn = pos.max;
 			parsed.message = friendlyMessage(message);
 			return '';
 		});
-		e.message.replace(regex2, function(match, message, line, column) {
-			parsed.startLine = +line;
-			parsed.startColumn = +column;
-			parsed.endLine = parsed.startLine;
-			parsed.endColumn = parsed.startColumn + 1;
+		e.message.replace(regex2, function(match, message, lineNum, columnNum) {
+
+			lineNum = +lineNum;
+			lineNum = lineNum - 1;
+			columnNum = +columnNum;
+			columnNum = columnNum - 1;
+
+			parsed.minLine = lineNum;
+			parsed.minColumn = columnNum;
+			parsed.maxLine = parsed.minLine;
+			parsed.maxColumn = parsed.minColumn + 1;
 			parsed.message = friendlyMessage(message);
 			return '';
 		});
