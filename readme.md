@@ -9,10 +9,10 @@ Handlebars exception types:
 This module parses the exception message into:
 ```js
 {
-    startLine: 1,
-    startColumn: 3,
-    endLine: 1,
-    endColumn: 4,
+    minLine: 1,
+    minColumn: 3,
+    maxLine: 1,
+    maxColumn: 4,
     message: 'foo doesn\'t match bar'
 }
 ```
@@ -26,11 +26,12 @@ npm install handlebars-error-parser --save
 In Node.js:
 ```js
 var parser = require('handlebars-error-parser').parser;
+var html = '{{#foo}}{{/bar}}';
 var parsed;
 try {
-    hbs.precompile('{{#foo}}{{/bar}}');
+    hbs.precompile(html);
 } catch (e) {
-    parsed = parser(e);
+    parsed = parser(e, html);
 }
 ```
 
@@ -39,11 +40,12 @@ In browser:
 <script src="./node_modules/handlebars-error-parser/index.js"></script>
 ```
 ```js
+var html = '{{#foo}}{{/bar}}';
 var parsed;
 try {
-    hbs.precompile('{{#foo}}{{/bar}}');
+    hbs.precompile(html);
 } catch (e) {
-    parsed = window.HandlebarsErrorParser(e);
+    parsed = window.HandlebarsErrorParser(e, html);
 }
 ```
 
