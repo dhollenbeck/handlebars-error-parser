@@ -9,6 +9,7 @@
 		if (message === "Expecting 'EOF', got 'OPEN_ENDBLOCK'") return 'invalid closing block, check opening block';
 		if (message === "Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'CLOSE'") return 'empty Handlebars expression';
 		if (message === "Expecting 'ID', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', got 'EOF'") return 'invalid Handlebars expression';
+		if (message === "Expecting 'CLOSE_RAW_BLOCK', 'CLOSE', 'CLOSE_UNESCAPED', 'OPEN_SEXPR', 'CLOSE_SEXPR', 'ID', 'OPEN_BLOCK_PARAMS', 'STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED', 'NULL', 'DATA', 'SEP', got 'OPEN'") return 'invalid Handlebars expression';
 		return message;
 	}
 
@@ -23,19 +24,20 @@
 
 		function getPos(lineNum, code, indicator) {
 
-			var line, min, max, dots = false;
+			var line, min, max, dots = false, prefix = 0;
 
-			// trim off extra suffix code which could
-			// force us to not find the pos in the line.
+			// trim off extra prefix and suffix from code which
+			// could force us to not find the pos in the line.
 			code = code.substring(0, indicator.length);
-
 			code = code.replace('...', function() {
 				dots = true;
 				return '';
 			});
 
+			prefix = code.indexOf('{{');
 			line = lines[lineNum];
 			min = line.indexOf(code);
+			min = min + prefix;
 			max = (!dots)
 				? min + indicator.length - 1
 				: min + indicator.length - 4;
