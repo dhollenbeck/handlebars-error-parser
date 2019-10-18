@@ -21,7 +21,7 @@
     "eslint": "^4.9.0",
     "grunt": "^1.0.1",
     "grunt-eslint": "^20.1.0",
-    "handlebars": "^4.0.11",
+    "handlebars": "^4.4.3",
     "mocha": "^5.0.1"
   }
 }
