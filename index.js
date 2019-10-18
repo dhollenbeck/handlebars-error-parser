@@ -1,5 +1,5 @@
 (function () {
-	'use strict';
+	'use strict'; // eslint-disable-line strict
 
 	var regex1 = /^Parse error on line ([0-9]+)+:\n([^\n].*)\n([^\n].*)\n(.*)$/;
 	var regex2 = /^(.*) - ([0-9]+):([0-9]+)$/;
@@ -97,4 +97,4 @@
 	if ('undefined' !== typeof module) { // eslint-disable-line no-undef
 		exports.parser = parser; // eslint-disable-line no-undef
 	}
-})();
+}());

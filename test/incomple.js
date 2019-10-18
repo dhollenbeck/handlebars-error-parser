@@ -5,9 +5,9 @@ var hbs = require('handlebars');
 var parser = require('../index.js').parser;
 
 describe('Incomplete Expressions', function () {
-    it('open empty expression', function () {
-        var parsed;
-        var html = '{{';
+	it('open empty expression', function () {
+		var parsed;
+		var html = '{{';
 		try {
 			hbs.precompile(html);
 		} catch (e) {
@@ -23,8 +23,8 @@ describe('Incomplete Expressions', function () {
 		}
 	});
 	it('open and closed empty expression', function () {
-        var parsed;
-        var html = '{{}}';
+		var parsed;
+		var html = '{{}}';
 		try {
 			hbs.precompile(html);
 		} catch (e) {
@@ -41,8 +41,8 @@ describe('Incomplete Expressions', function () {
 	});
 
 	it('open block empty expression', function () {
-        var parsed;
-        var html = '{{#';
+		var parsed;
+		var html = '{{#';
 		try {
 			hbs.precompile(html);
 		} catch (e) {
@@ -59,8 +59,8 @@ describe('Incomplete Expressions', function () {
 	});
 
 	it('two open empty expression', function () {
-        var parsed;
-        var html = '{{{{';
+		var parsed;
+		var html = '{{{{';
 		try {
 			hbs.precompile(html);
 		} catch (e) {
@@ -76,8 +76,8 @@ describe('Incomplete Expressions', function () {
 		}
 	});
 	it('open helper expression', function () {
-        var parsed;
-        var html = '{{foo';
+		var parsed;
+		var html = '{{foo';
 		try {
 			hbs.precompile(html);
 		} catch (e) {
@@ -91,11 +91,11 @@ describe('Incomplete Expressions', function () {
 				message: 'invalid Handlebars expression'
 			}, parsed);
 		}
-    });
-    
-    it('open helper expression with dots prefix', function () {
-        var parsed;
-        var html = "<h1 class='foobar'>{{echo 'hello world'}</h1>\n<div>\n\tThis is an invalid div.";
+	});
+
+	it('open helper expression with dots prefix', function () {
+		var parsed;
+		var html = "<h1 class='foobar'>{{echo 'hello world'}</h1>\n<div>\n\tThis is an invalid div.";
 		try {
 			hbs.precompile(html);
 		} catch (e) {
@@ -109,10 +109,10 @@ describe('Incomplete Expressions', function () {
 				message: 'invalid Handlebars expression'
 			}, parsed);
 		}
-    });
-    it('open helper expression with dots prefix', function () {
-        var parsed;
-        var html = "<h1 class='foobar'>{{foo {{echo 'hello world'}</h1>\n<div>\n\tThis is an invalid div.";
+	});
+	it('open helper expression with dots prefix', function () {
+		var parsed;
+		var html = "<h1 class='foobar'>{{foo {{echo 'hello world'}</h1>\n<div>\n\tThis is an invalid div.";
 		try {
 			hbs.precompile(html);
 		} catch (e) {
@@ -126,10 +126,10 @@ describe('Incomplete Expressions', function () {
 				message: 'invalid Handlebars expression'
 			}, parsed);
 		}
-    });
-    it('open helper expression with dots prefix', function () {
-        var parsed;
-        var html = "<h1 class='foobar'>{{foo}}}} {{echo 'hello world'}</h1>\n<div>\n\tThis is an invalid div.";
+	});
+	it('open helper expression with dots prefix', function () {
+		var parsed;
+		var html = "<h1 class='foobar'>{{foo}}}} {{echo 'hello world'}</h1>\n<div>\n\tThis is an invalid div.";
 		try {
 			hbs.precompile(html);
 		} catch (e) {
@@ -143,5 +143,5 @@ describe('Incomplete Expressions', function () {
 				message: 'invalid Handlebars expression'
 			}, parsed);
 		}
-    });
+	});
 });

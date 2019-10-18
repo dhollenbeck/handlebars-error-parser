@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "eslint --rulesdir node_modules/@ravdocs/eslint/rules ."
   },
   "repository": {
     "type": "git",
@@ -17,11 +18,9 @@
   },
   "homepage": "https://github.com/dhollenbeck/handlebars-error-parser#readme",
   "devDependencies": {
-    "@esscorp/eslint": "^2.2.3",
-    "eslint": "^4.9.0",
-    "grunt": "^1.0.1",
-    "grunt-eslint": "^20.1.0",
+    "@ravdocs/eslint": "^1.0.11",
+    "eslint": "^6.5.1",
     "handlebars": "^4.4.3",
-    "mocha": "^5.0.1"
+    "mocha": "^6.2.2"
   }
 }
