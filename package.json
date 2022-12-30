@@ -21,6 +21,6 @@
     "@ravdocs/eslint": "^1.0.11",
     "eslint": "^6.5.1",
     "handlebars": "^4.4.3",
-    "mocha": "^6.2.2"
+    "mocha": "^10.2.0"
   }
 }
